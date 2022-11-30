@@ -9,17 +9,19 @@ const SecondsCounter = () => {
     const [minutes, setMinutes] = useState(0);
     const [hours, setHours] = useState(0);
 
-    const timeId = setTimeout(() => {
-        setSeconds(seconds + 1);
+    const secondsId = setTimeout(() => {
+        seconds === 59? (setSeconds(0), setMinutes(minutes + 1)) : setSeconds(seconds + 1);
+        minutes === 59? (setMinutes(0), setHours(hours + 1)) : null;
     }, 1000);
 
     const pauseCounter = () => {
-        clearTimeout(timeId);
+        clearTimeout(secondsId);
     };
 
     const startCounter = () => {
         setTimeout(() => {
-            setSeconds(seconds + 1);
+            seconds === 59? (setSeconds(0), setMinutes(minutes + 1)) : setSeconds(seconds + 1);
+            minutes === 59? (setMinutes(0), setHours(hours + 1)) : null;
         }, 1000);
     };
 
@@ -29,15 +31,6 @@ const SecondsCounter = () => {
         setMinutes(0);
         setHours(0);
     };
-
-    if (minutes == 60) {
-        setSeconds(0);
-        setMinutes(0);
-        setHours(hours + 1)
-    } else if (seconds === 60) {
-        setSeconds(0);
-        setMinutes(minutes + 1)
-    }
 
     let arrSeconds = Array.from(String(seconds), Number);
     let arrMinutes = Array.from(String(minutes), Number);
